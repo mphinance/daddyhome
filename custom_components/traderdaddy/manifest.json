@@ -1,0 +1,12 @@
+{
+  "domain": "traderdaddy",
+  "name": "TraderDaddy Pro",
+  "codeowners": ["@mphinance"],
+  "config_flow": true,
+  "documentation": "https://github.com/mphinance/daddyhome",
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/mphinance/daddyhome/issues",
+  "requirements": ["traderdaddy>=0.1.0"],
+  "version": "0.1.0"
+}

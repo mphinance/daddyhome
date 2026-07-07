@@ -1,0 +1,44 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "TraderDaddy Pro",
+        "description": "Leave the API key blank to run in keyless demo mode. Enter your td_live_ key to go live.",
+        "data": {
+          "api_key": "API key (td_live_…)",
+          "symbol": "Ticker to track (IV rank & put/call)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach TraderDaddy Pro with that key."
+    },
+    "abort": {
+      "already_configured": "TraderDaddy Pro is already set up."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "TraderDaddy Pro options",
+        "data": {
+          "symbol": "Ticker to track (IV rank & put/call)"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "market_sentiment": { "name": "Market sentiment" },
+      "put_call_ratio": { "name": "Put/call ratio" },
+      "gamma_bias": { "name": "Gamma bias" },
+      "iv_rank": { "name": "IV rank" },
+      "sector_leader": { "name": "Sector leader" },
+      "top_flow": { "name": "Top flow" },
+      "total_flow_premium": { "name": "Total flow premium" }
+    },
+    "binary_sensor": {
+      "legendary_print": { "name": "Legendary print" }
+    }
+  }
+}
