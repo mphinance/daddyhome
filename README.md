@@ -3,12 +3,16 @@
 > TraderDaddy Pro **on your wall and in your smart home** — a TRMNL e-ink plugin
 > and a Home Assistant integration.
 
-**Status:** 🚧 Spec only — not built yet. This README is the build brief.
+**Status:** ✅ Home Assistant integration built (HACS-installable, keyless demo
+mode; add your `td_live_` key to go live). 🚧 TRMNL e-ink plugin still to come.
 
 Part of the [TraderDaddy Pro](https://traderdaddy.pro) open-source family, alongside
 [DaddyBoard](https://github.com/mphinance/daddyboard). Depends on
 [traderdaddy-sdk](https://github.com/mphinance/traderdaddy-sdk) (TS) and the
-Python mirror `traderdaddy`.
+Python mirror [`traderdaddy`](https://pypi.org/project/traderdaddy/).
+
+**Customizing it?** Grab a prompt from [`PROMPTS.md`](PROMPTS.md) and paste it into
+Claude Code / Cursor. Agents working in this repo should read [`CLAUDE.md`](CLAUDE.md).
 
 ---
 
@@ -54,17 +58,20 @@ flash a light when a big print hits, or show flow on a wall tablet / e-ink panel
 Self-host/personal: the user supplies their own `td_live_` key — in TRMNL's
 plugin settings or HA's config flow. Slow polling is naturally rate-limit-friendly.
 
-## Build milestones
+## Status & what's next
 
-1. **Prereq:** Python `traderdaddy` SDK exists (see traderdaddy-sdk milestone 7).
-2. HA custom component: config flow + coordinator + 4–5 sensors (demo data first).
-3. Publish via HACS (custom repo); document installation.
-4. TRMNL plugin: pick hosted-private vs self-host push; render the e-ink layout
-   (reuse DaddyBoard's panel data shapes).
-5. Photos/screenshots of both on real hardware for the listings.
+**Done:**
 
-## Picking this up in a new session
+1. ✅ Python `traderdaddy` SDK (the prereq) — shipped on PyPI.
+2. ✅ HA custom component: config flow + market-hours coordinator + sensors and
+   binary sensors, all demo-first (`mock=True` with no key).
+3. ✅ HACS metadata (`hacs.json`) for custom-repo install.
 
-Prereq: the **Python** SDK (`traderdaddy` on PyPI). If it doesn't exist yet, do
-that first (mirror `@traderdaddy/sdk`). HA integration is the higher-value half
-(bigger community, HACS discovery) — start there; TRMNL can follow on the TS SDK.
+**Still to come:**
+
+4. 🚧 TRMNL plugin — pick hosted-private vs self-host push; render the e-ink
+   layout on the **TS** SDK (reuse DaddyBoard's panel data shapes).
+5. 🚧 Photos/screenshots on real hardware for the listings.
+
+Adding a sensor, tuning the cadence, or starting the TRMNL plugin? Grab a prompt
+from [`PROMPTS.md`](PROMPTS.md); [`CLAUDE.md`](CLAUDE.md) has the conventions.
