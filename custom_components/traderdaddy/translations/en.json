@@ -21,10 +21,15 @@
     "step": {
       "init": {
         "title": "TraderDaddy Pro options",
+        "description": "Leave the API key blank to keep your current key (or stay in demo mode). Enter a new td_live_ key to rotate it or go live.",
         "data": {
-          "symbol": "Ticker to track (IV rank & put/call)"
+          "symbol": "Ticker to track (IV rank & put/call)",
+          "api_key": "New API key (td_live_…, optional)"
         }
       }
+    },
+    "error": {
+      "cannot_connect": "Could not reach TraderDaddy Pro with that key."
     }
   },
   "entity": {

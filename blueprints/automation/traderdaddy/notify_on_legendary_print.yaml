@@ -1,0 +1,50 @@
+blueprint:
+  name: TraderDaddy Pro — Notify on LEGENDARY Print
+  description: >-
+    Fire a notification the moment a LEGENDARY-tier options print hits the
+    tape. Pair with a light/siren action for the full wall-mounted-alert
+    experience — just add more actions after the notify step.
+  domain: automation
+  source_url: https://github.com/mphinance/daddyhome/blob/main/blueprints/automation/traderdaddy/notify_on_legendary_print.yaml
+  input:
+    legendary_sensor:
+      name: Legendary print binary sensor
+      description: The TraderDaddy Pro "legendary print" binary sensor.
+      selector:
+        entity:
+          filter:
+            - integration: traderdaddy
+              domain: binary_sensor
+    notify_action:
+      name: Notify action
+      description: The notify service/device to alert.
+      selector:
+        action: {}
+    top_flow_sensor:
+      name: Top flow sensor (optional)
+      description: >-
+        Optional. When set, a {{ top_flow }} template variable (the sensor's
+        current state) is available to reference inside the notify action's
+        message.
+      default: ""
+      selector:
+        entity:
+          filter:
+            - integration: traderdaddy
+              domain: sensor
+
+trigger:
+  - platform: state
+    entity_id: !input legendary_sensor
+    to: "on"
+
+condition: []
+
+action:
+  - variables:
+      top_flow_entity: !input top_flow_sensor
+      top_flow: >-
+        {{ states(top_flow_entity) if top_flow_entity else "" }}
+  - !input notify_action
+
+mode: single

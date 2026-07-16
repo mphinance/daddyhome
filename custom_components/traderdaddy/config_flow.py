@@ -75,21 +75,52 @@ class TraderDaddyConfigFlow(ConfigFlow, domain=DOMAIN):
 
 
 class TraderDaddyOptionsFlow(OptionsFlow):
-    """Let the user change the tracked symbol without re-adding the entry."""
+    """Let the user change the tracked symbol, and rotate/add the API key,
+    without deleting and re-adding the entry."""
 
     async def async_step_init(
         self, user_input: dict[str, Any] | None = None
     ) -> ConfigFlowResult:
+        errors: dict[str, str] = {}
         if user_input is not None:
             symbol = (user_input.get(CONF_SYMBOL) or DEFAULT_SYMBOL).strip().upper()
-            return self.async_create_entry(
-                title="", data={CONF_SYMBOL: symbol or DEFAULT_SYMBOL}
-            )
+            new_api_key = (user_input.get(CONF_API_KEY) or "").strip()
+
+            if new_api_key:
+                try:
+                    td = TraderDaddy(
+                        api_key=new_api_key, client=get_async_client(self.hass)
+                    )
+                    await td.market_stats()
+                    await td.aclose()
+                except TraderDaddyError:
+                    errors["base"] = "cannot_connect"
+
+            if not errors:
+                if new_api_key:
+                    self.hass.config_entries.async_update_entry(
+                        self.config_entry,
+                        data={
+                            **self.config_entry.data,
+                            CONF_API_KEY: new_api_key,
+                        },
+                    )
+                return self.async_create_entry(
+                    title="", data={CONF_SYMBOL: symbol or DEFAULT_SYMBOL}
+                )
 
         current = (
             self.config_entry.options.get(CONF_SYMBOL)
             or self.config_entry.data.get(CONF_SYMBOL)
             or DEFAULT_SYMBOL
         )
-        schema = vol.Schema({vol.Optional(CONF_SYMBOL, default=current): str})
-        return self.async_show_form(step_id="init", data_schema=schema)
+        schema = vol.Schema(
+            {
+                vol.Optional(CONF_SYMBOL, default=current): str,
+                # Blank = keep the current key (or stay in demo mode).
+                vol.Optional(CONF_API_KEY, default=""): str,
+            }
+        )
+        return self.async_show_form(
+            step_id="init", data_schema=schema, errors=errors
+        )
