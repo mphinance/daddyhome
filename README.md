@@ -165,6 +165,22 @@ in automations/templates without a helper sensor.
 `atr`/`limit`; returns the hedge-analysis response as response data (needs
 call-time args, so it's a service rather than a polled sensor).
 
+## Automation blueprint
+
+[`blueprints/automation/traderdaddy/notify_on_legendary_print.yaml`](blueprints/automation/traderdaddy/notify_on_legendary_print.yaml)
+— import it via **Settings -> Automations -> Blueprints -> Import Blueprint**
+(paste the raw GitHub URL) for a ready-made "notify me on a LEGENDARY print"
+automation: pick your legendary-print binary sensor, pick a notify action,
+optionally wire in the top-flow sensor for a `{{ top_flow }}` template
+variable in your message. No YAML/Python required.
+
+## Diagnostics
+
+Every config entry supports HA's standard **Download diagnostics** (Settings
+-> Devices & Services -> TraderDaddy Pro -> ⋮) — a redacted JSON dump (API
+key stripped) of the entry plus both coordinators' current cached data.
+Handy for bug reports.
+
 ## Long-term trend: Grafana
 
 HA's recorder only keeps ~10 days. See [`docs/GRAFANA.md`](docs/GRAFANA.md)
@@ -176,7 +192,10 @@ conviction/quality/sentiment trend charts that go back further.
 
 Self-host/personal: the user supplies their own `td_live_` key — in TRMNL's
 plugin settings or HA's config flow. Two coordinator tiers, one shared client,
-naturally rate-limit-friendly.
+naturally rate-limit-friendly. Need to rotate a key or go from demo to live?
+**Settings -> Devices & Services -> TraderDaddy Pro -> Configure** — the
+options flow validates a new key live before applying it, no need to delete
+and re-add the integration.
 
 ## Status & what's next
 
@@ -189,15 +208,18 @@ naturally rate-limit-friendly.
 3. ✅ HACS metadata (`hacs.json`) for custom-repo install.
 4. ✅ Custom Lovelace card (`www/`) + Grafana/InfluxDB long-term-trend recipe
    (`docs/`).
+5. ✅ Predictable `sensor.td_*` entity ids (`_attr_suggested_object_id`),
+   diagnostics download support, an importable notify-on-legendary
+   automation blueprint, and in-place API key rotation via the options flow.
 
 **Still to come:**
 
-5. 🚧 TRMNL plugin — pick hosted-private vs self-host push; render the e-ink
+6. 🚧 TRMNL plugin — pick hosted-private vs self-host push; render the e-ink
    layout on the **TS** SDK (reuse DaddyBoard's panel data shapes).
-6. 🚧 Multi-ticker support (watching more than one symbol) — a real
+7. 🚧 Multi-ticker support (watching more than one symbol) — a real
    architecture project (HA config subentries, per-symbol devices); deferred,
    see `FINDINGS.md`.
-7. 🚧 Photos/screenshots on real hardware for the listings.
+8. 🚧 Photos/screenshots on real hardware for the listings.
 
 Adding a sensor, tuning the cadence, or starting the TRMNL plugin? Grab a prompt
 from [`PROMPTS.md`](PROMPTS.md); [`CLAUDE.md`](CLAUDE.md) has the conventions.

@@ -19,7 +19,8 @@ PyPI SDK (the async mirror of `@traderdaddy/sdk`), pinned in `manifest.json` as
 | Path | What |
 |---|---|
 | `custom_components/traderdaddy/__init__.py` | Entry setup/unload; creates the **one** shared `TraderDaddy` client and both coordinators; registers the `hedge_analysis` service. |
-| `custom_components/traderdaddy/config_flow.py` | UI config flow — the user's `td_live_` key + symbol. |
+| `custom_components/traderdaddy/config_flow.py` | UI config flow (initial `td_live_` key + symbol) plus the options flow (change symbol, rotate/add API key in-place). |
+| `custom_components/traderdaddy/diagnostics.py` | HA "download diagnostics" support — redacted config entry + both coordinators' cached data. |
 | `custom_components/traderdaddy/coordinator.py` | **Fast-tier** `DataUpdateCoordinator` — market-hours cadence, market-wide vitals + tracked-symbol core reads (10 tools). |
 | `custom_components/traderdaddy/coordinator_slow.py` | **Slow-tier** `DataUpdateCoordinator` — long cadence, everything scoped to the tracked symbol plus rotating screeners/IPO scanner (14 tools). |
 | `custom_components/traderdaddy/sensor.py` | Sensors — each is one `value_fn`/`attr_fn` over a coordinator's cache. `FAST_SENSORS` bind to `coordinator.py`, `SLOW_SENSORS` bind to `coordinator_slow.py`. |
@@ -27,12 +28,13 @@ PyPI SDK (the async mirror of `@traderdaddy/sdk`), pinned in `manifest.json` as
 | `custom_components/traderdaddy/event.py` | `event` platform — dedup'd "new item" triggers (new print, new politician trade, new IPO, earnings approaching). |
 | `custom_components/traderdaddy/calendar.py` | `calendar` platform (slow tier) — economic/earnings/dividend calendars as native HA `CalendarEntity`s. |
 | `custom_components/traderdaddy/services.yaml` | Schema for the `hedge_analysis` service. |
-| `custom_components/traderdaddy/entity.py` | Shared base entity — works with either coordinator tier (`AnyTraderDaddyCoordinator`). |
+| `custom_components/traderdaddy/entity.py` | Shared base entity — works with either coordinator tier (`AnyTraderDaddyCoordinator`); sets `_attr_suggested_object_id` so entity ids are predictable (`sensor.td_*`). |
 | `custom_components/traderdaddy/const.py` | `DOMAIN`, conf keys, fast/slow `SCAN_INTERVAL_*`, screener/IPO-view rotation lists, `PLATFORMS`. |
 | `custom_components/traderdaddy/manifest.json` | HA manifest — `requirements: ["traderdaddy>=0.1.0"]`. |
 | `custom_components/traderdaddy/strings.json` + `translations/` | Config-flow + entity-name UI strings. |
 | `www/traderdaddy-vitals-card.js` + `www/preview.html` | No-build custom Lovelace card + a standalone mock-data harness for viewing/screenshotting it. |
 | `docs/GRAFANA.md` + `docs/grafana-dashboard.json` | InfluxDB + Grafana long-term-trend recipe (HA's recorder only keeps ~10 days). |
+| `blueprints/automation/traderdaddy/notify_on_legendary_print.yaml` | Importable automation blueprint — notify on a LEGENDARY print, no YAML/Python needed. |
 | `hacs.json` | HACS metadata (custom-repo install). |
 
 ## The one rule
