@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--
+  Standalone harness for traderdaddy-vitals-card.js — no running Home
+  Assistant instance required. Defines a minimal `ha-card` element (just a
+  plain block, matching HA's default rendering) and a `hass`-shaped mock
+  object with mock data matching the real sensor attribute shapes, so the
+  card can be viewed directly in a browser or captured by Playwright for the
+  README screenshot.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>TraderDaddy Pro Vitals Card — preview</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: hsl(222 42% 4%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  #stage {
+    width: 480px;
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+  <traderdaddy-vitals-card id="card"></traderdaddy-vitals-card>
+</div>
+
+<script>
+  // Minimal ha-card stand-in — HA's real one is just a styled div wrapper.
+  class HaCard extends HTMLElement {
+    connectedCallback() {
+      this.style.display = "block";
+    }
+  }
+  customElements.define("ha-card", HaCard);
+</script>
+<script src="./traderdaddy-vitals-card.js"></script>
+<script>
+  const mockHass = {
+    states: {
+      "sensor.traderdaddy_pro_market_sentiment": {
+        state: "BULLISH",
+        attributes: {
+          spy_put_call_ratio: 0.72,
+          qqq_put_call_ratio: 0.68,
+          iwm_put_call_ratio: 0.81,
+          largest_trade_symbol: "NVDA",
+          largest_trade_premium: 4820000,
+        },
+      },
+      "sensor.traderdaddy_pro_put_call_ratio": { state: "0.74", attributes: {} },
+      "sensor.traderdaddy_pro_gamma_bias": {
+        state: "LONG_GAMMA",
+        attributes: {},
+      },
+      "sensor.traderdaddy_pro_top_flow": {
+        state: "NVDA",
+        attributes: {
+          tier: "LEGENDARY",
+          premium: 4820000,
+          sentiment: "bullish",
+          flow_description: "Sweep — 12,400 contracts, $482 strike calls",
+        },
+      },
+      "sensor.traderdaddy_pro_institutional_leader": {
+        state: "META",
+        attributes: { sentiment: "bullish" },
+      },
+      "sensor.traderdaddy_pro_conviction_market": {
+        state: "78",
+        attributes: {},
+      },
+      "binary_sensor.traderdaddy_pro_legendary_print": {
+        state: "on",
+        attributes: { count: 3, top_ticker: "NVDA" },
+      },
+      "binary_sensor.traderdaddy_pro_gamma_flip": {
+        state: "off",
+        attributes: {},
+      },
+    },
+  };
+
+  const card = document.getElementById("card");
+  card.setConfig({});
+  card.hass = mockHass;
+</script>
+</body>
+</html>

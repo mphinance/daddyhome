@@ -35,10 +35,41 @@
       "iv_rank": { "name": "IV rank" },
       "sector_leader": { "name": "Sector leader" },
       "top_flow": { "name": "Top flow" },
-      "total_flow_premium": { "name": "Total flow premium" }
+      "total_flow_premium": { "name": "Total flow premium" },
+      "market_health": { "name": "Market health" },
+      "institutional_leader": { "name": "Institutional leader" },
+      "conviction_market": { "name": "Market conviction" },
+      "bounce_signal_top": { "name": "Top bounce signal" },
+      "featured_screener": { "name": "Featured screener" },
+      "strategy_idea_top": { "name": "Top strategy idea" },
+      "edge_xray_bias": { "name": "Edge X-ray bias" },
+      "gex_ticker_bias": { "name": "Symbol gamma bias" },
+      "apex_level_top": { "name": "Top apex level" },
+      "bounce_score_symbol": { "name": "Symbol bounce score" },
+      "conviction_symbol": { "name": "Symbol conviction" },
+      "long_term_quality": { "name": "Long-term quality" },
+      "politician_top_portfolio": { "name": "Top politician portfolio" },
+      "politician_latest_trade": { "name": "Latest politician trade" },
+      "next_dividend": { "name": "Next dividend" },
+      "ipo_highlight": { "name": "IPO highlight" }
     },
     "binary_sensor": {
-      "legendary_print": { "name": "Legendary print" }
+      "legendary_print": { "name": "Legendary print" },
+      "gamma_flip": { "name": "Short gamma" },
+      "elevated_risk": { "name": "Elevated risk" },
+      "bounce_signal": { "name": "Bounce signal" },
+      "high_conviction": { "name": "High conviction" }
+    },
+    "event": {
+      "new_print": { "name": "New print" },
+      "new_politician_trade": { "name": "New politician trade" },
+      "new_ipo_listing": { "name": "New IPO listing" },
+      "earnings_approaching": { "name": "Earnings approaching" }
+    },
+    "calendar": {
+      "economic_calendar": { "name": "Economic calendar" },
+      "earnings_calendar": { "name": "Earnings calendar" },
+      "dividend_calendar": { "name": "Dividend calendar" }
     }
   }
 }

@@ -1,0 +1,49 @@
+hedge_analysis:
+  name: Hedge analysis
+  description: >-
+    Run TraderDaddy Pro's hedge_analysis tool on demand for a symbol/share
+    count and return the recommended protective structure as response data.
+  fields:
+    symbol:
+      name: Symbol
+      description: Ticker to analyze (e.g. NVDA).
+      required: true
+      example: "NVDA"
+      selector:
+        text:
+    shares:
+      name: Shares
+      description: Number of shares held in the underlying position.
+      required: true
+      example: 100
+      selector:
+        number:
+          min: 1
+          mode: box
+    basis:
+      name: Cost basis
+      description: Optional average cost basis per share.
+      required: false
+      example: 450.0
+      selector:
+        number:
+          mode: box
+          step: 0.01
+    atr:
+      name: ATR override
+      description: Optional ATR override, if you want to supply your own volatility read.
+      required: false
+      example: 12.5
+      selector:
+        number:
+          mode: box
+          step: 0.01
+    limit:
+      name: Result limit
+      description: Optional cap on the number of hedge structures returned.
+      required: false
+      example: 5
+      selector:
+        number:
+          min: 1
+          mode: box
