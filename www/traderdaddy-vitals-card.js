@@ -19,14 +19,14 @@
  */
 
 const DEFAULT_ENTITIES = {
-  sentiment: "sensor.traderdaddy_pro_market_sentiment",
-  put_call: "sensor.traderdaddy_pro_put_call_ratio",
-  gamma_bias: "sensor.traderdaddy_pro_gamma_bias",
-  top_flow: "sensor.traderdaddy_pro_top_flow",
-  institutional_leader: "sensor.traderdaddy_pro_institutional_leader",
-  conviction_market: "sensor.traderdaddy_pro_conviction_market",
-  legendary_print: "binary_sensor.traderdaddy_pro_legendary_print",
-  gamma_flip: "binary_sensor.traderdaddy_pro_gamma_flip",
+  sentiment: "sensor.td_market_sentiment",
+  put_call: "sensor.td_put_call_ratio",
+  gamma_bias: "sensor.td_gamma_bias",
+  top_flow: "sensor.td_top_flow",
+  institutional_leader: "sensor.td_institutional_leader",
+  conviction_market: "sensor.td_conviction_market",
+  legendary_print: "binary_sensor.td_legendary_print",
+  gamma_flip: "binary_sensor.td_gamma_flip",
 };
 
 const STYLE = `

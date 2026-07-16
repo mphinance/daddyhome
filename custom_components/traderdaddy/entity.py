@@ -28,6 +28,12 @@ class TraderDaddyEntity(CoordinatorEntity[AnyTraderDaddyCoordinator]):
     ) -> None:
         super().__init__(coordinator)
         self._attr_unique_id = f"{entry.entry_id}_{key}"
+        # Predictable entity ids (sensor.td_market_sentiment, not the
+        # auto-slugged sensor.traderdaddy_pro_market_sentiment) — this is
+        # what the README, CLAUDE.md, and the custom card's default
+        # entity map all assume. Only applies on first creation; a user who
+        # already renamed an entity keeps their own id.
+        self._attr_suggested_object_id = f"td_{key}"
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, entry.entry_id)},
             name="TraderDaddy Pro",

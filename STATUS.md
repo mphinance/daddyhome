@@ -60,12 +60,12 @@ comment. Fixed while rewriting `sensor.py`: `market_sentiment` now reads
 - Publishing the custom card as a HACS "plugin" repo type — ships as a
   bundled `www/` asset with manual resource-add instructions.
 
-## Known gap (pre-existing, not introduced this pass)
+## Fixed since the last pass
 
-The README/docstrings document entity ids using a `td_*` shorthand
-(`sensor.td_market_sentiment`, matching the convention already established
-before this build), but HA's actual auto-generated entity ids follow its
-`has_entity_name` + device-name slug (`sensor.traderdaddy_pro_market_sentiment`).
-The custom card's defaults use the real generated form and are overridable
-via `entities:` config. Worth reconciling in a future pass — either set
-explicit `entity_id`/`suggested_object_id` per entity, or fix the docs.
+- **Entity-id mismatch resolved.** `entity.py` now sets
+  `_attr_suggested_object_id = f"td_{key}"` on every entity, so HA's
+  auto-generated entity ids are actually `sensor.td_market_sentiment` etc. —
+  matching what the README, CLAUDE.md, and the custom card's defaults always
+  assumed. (Only applies on first creation; a user who already renamed an
+  entity keeps their own id.) `www/traderdaddy-vitals-card.js`'s
+  `DEFAULT_ENTITIES` and `www/preview.html`'s mock data updated to match.

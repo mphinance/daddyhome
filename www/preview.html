@@ -45,7 +45,7 @@
 <script>
   const mockHass = {
     states: {
-      "sensor.traderdaddy_pro_market_sentiment": {
+      "sensor.td_market_sentiment": {
         state: "BULLISH",
         attributes: {
           spy_put_call_ratio: 0.72,
@@ -55,12 +55,12 @@
           largest_trade_premium: 4820000,
         },
       },
-      "sensor.traderdaddy_pro_put_call_ratio": { state: "0.74", attributes: {} },
-      "sensor.traderdaddy_pro_gamma_bias": {
+      "sensor.td_put_call_ratio": { state: "0.74", attributes: {} },
+      "sensor.td_gamma_bias": {
         state: "LONG_GAMMA",
         attributes: {},
       },
-      "sensor.traderdaddy_pro_top_flow": {
+      "sensor.td_top_flow": {
         state: "NVDA",
         attributes: {
           tier: "LEGENDARY",
@@ -69,19 +69,19 @@
           flow_description: "Sweep — 12,400 contracts, $482 strike calls",
         },
       },
-      "sensor.traderdaddy_pro_institutional_leader": {
+      "sensor.td_institutional_leader": {
         state: "META",
         attributes: { sentiment: "bullish" },
       },
-      "sensor.traderdaddy_pro_conviction_market": {
+      "sensor.td_conviction_market": {
         state: "78",
         attributes: {},
       },
-      "binary_sensor.traderdaddy_pro_legendary_print": {
+      "binary_sensor.td_legendary_print": {
         state: "on",
         attributes: { count: 3, top_ticker: "NVDA" },
       },
-      "binary_sensor.traderdaddy_pro_gamma_flip": {
+      "binary_sensor.td_gamma_flip": {
         state: "off",
         attributes: {},
       },
